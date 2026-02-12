@@ -1,0 +1,73 @@
+@model IEnumerable<PedidoWeb.Modelos.Pedido>
+
+@{
+    ViewData["Title"] = "Gestão de Pedidos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold text-dark mb-0">Pedidos</h2>
+        <p class="text-muted small">Acompanhamento e controle de vendas</p>
+    </div>
+    <a asp-action="Criar" class="btn btn-primary shadow-sm px-4 rounded-pill">
+        <i class="bi bi-cart-plus me-2"></i> Novo Pedido
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle datatable">
+
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 border-0">Nº Pedido</th>
+                        <th class="py-3 border-0">Data</th>
+                        <th class="py-3 border-0">Cliente</th>
+                        <th class="py-3 border-0">Valor Total</th>
+                        <th class="py-3 border-0">Status</th>
+                        <th class="py-3 border-0 text-end pe-4">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold">#@item.Id.ToString("D4")</td>
+                            <td>@item.Data.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@item.Cliente?.Nome</td>
+                            <td class="fw-bold text-dark">@item.ValorTotal.ToString("C2")</td>
+                            <td>
+                                @switch (item.Status)
+                                {
+                                    case PedidoWeb.Modelos.StatusPedido.Aberto:
+                                        <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill">Aberto</span>
+                                        break;
+                                    case PedidoWeb.Modelos.StatusPedido.Autorizado:
+                                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">Autorizado</span>
+                                        break;
+                                    case PedidoWeb.Modelos.StatusPedido.Cancelado:
+                                        <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">Cancelado</span>
+                                        break;
+                                }
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group shadow-sm rounded-pill overflow-hidden" style="border: 1px solid #dee2e6;">
+                                    @if (item.Status == PedidoWeb.Modelos.StatusPedido.Aberto)
+                                    {
+                                        <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-0" title="Editar Pedido">
+                                            <i class="bi bi-pencil text-primary"></i>
+                                        </a>
+                                    }
+                                    <a asp-action="Detalhes" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-0" title="Ver Detalhes">
+                                        <i class="bi bi-eye text-info"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

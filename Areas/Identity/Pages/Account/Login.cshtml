@@ -1,0 +1,258 @@
+﻿@page
+@model LoginModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Entrar no Sistema";
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PedidoWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-orange: #ff8c2e;
+            --hover-orange: #e67e22;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .login-container {
+            min-vh-100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-bottom: 5px solid var(--primary-orange);
+            position: relative;
+        }
+
+        .logo-wrapper {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: #fff;
+            border: 4px solid var(--primary-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-text {
+            font-size: 40px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #f39c12, #d35400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group-custom i:not(.password-toggle) {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #95a5a6;
+            z-index: 10;
+        }
+
+        .form-control-custom {
+            padding-left: 45px !important;
+            padding-right: 45px !important;
+            height: 55px;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            color: #2c3e50;
+        }
+
+        .form-control-custom:focus {
+            box-shadow: none;
+            border-color: var(--primary-orange);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #95a5a6;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .btn-entrar {
+            background-color: var(--primary-orange);
+            border: none;
+            color: white;
+            font-weight: 700;
+            height: 55px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .btn-entrar:hover {
+            background-color: var(--hover-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-limpar {
+            background-color: transparent;
+            border: 1px solid #ced4da;
+            color: #7f8c8d;
+            font-weight: 600;
+            height: 55px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-limpar:hover {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+
+        .text-danger {
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .alert-danger {
+            border-radius: 12px;
+            font-size: 14px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container min-vh-100">
+        <div class="login-card">
+            <div class="logo-wrapper">
+                <span class="logo-text">C&S</span>
+            </div>
+            
+            <h1 class="login-title">@ViewData["Title"]</h1>
+
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="input-group-custom">
+                    <i class="bi bi-building"></i>
+                    <input asp-for="Input.Conta" class="form-control form-control-custom" placeholder="Conta / Empresa" required />
+                    <span asp-validation-for="Input.Conta" class="text-danger"></span>
+                </div>
+
+                <div class="input-group-custom">
+                    <i class="bi bi-person"></i>
+                    <input asp-for="Input.Email" class="form-control form-control-custom" placeholder="E-mail" required />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="input-group-custom">
+                    <i class="bi bi-lock"></i>
+                    <input asp-for="Input.Password" type="password" id="passwordField" class="form-control form-control-custom" placeholder="Senha" required />
+                    <i class="bi bi-eye password-toggle" id="togglePassword"></i>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="login-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" asp-for="Input.RememberMe" id="rememberMe">
+                        <label class="form-check-label text-muted" for="rememberMe">
+                            Lembrar-me
+                        </label>
+                    </div>
+                    <a href="./ForgotPassword" class="text-primary text-decoration-none fw-semibold" style="color: #5d6d7e !important;">Esqueci a senha</a>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-entrar shadow-sm">Entrar</button>
+                    <button type="button" id="btnClear" class="btn btn-limpar">Limpar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Alternar visibilidade da senha
+            $('#togglePassword').click(function() {
+                const passwordField = $('#passwordField');
+                const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+                passwordField.attr('type', type);
+                $(this).toggleClass('bi-eye bi-eye-slash');
+            });
+
+            // Botão Limpar
+            $('#btnClear').click(function() {
+                $('#account')[0].reset();
+                $('.text-danger').text('');
+            });
+
+            function atualizarLogo() {
+                const conta = $('#Input_Conta').val();
+                if (conta) {
+                    $.get('/Empresas/ObterLogo', { conta: conta }, function(data) {
+                        if (data.logoPath) {
+                            $('.logo-wrapper').html(`<img src="${data.logoPath}" alt="Logo" style="max-width: 80px; max-height: 80px; border-radius: 50%; object-fit: contain; animation: fadeIn 0.5s;">`);
+                        } else {
+                            $('.logo-wrapper').html('<span class="logo-text">C&S</span>');
+                        }
+                    }).fail(function() {
+                        $('.logo-wrapper').html('<span class="logo-text">C&S</span>');
+                    });
+                }
+            }
+
+            // Executa ao sair do campo e ao carregar a página
+            $('#Input_Conta').on('blur', atualizarLogo);
+            atualizarLogo();
+        });
+    </script>
+    <style>
+        @@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</body>
+</html>
+

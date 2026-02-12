@@ -1,0 +1,490 @@
+@model PedidoWeb.Modelos.Pedido
+
+@{
+    ViewData["Title"] = "Lançar Novo Pedido";
+    var produtos = ViewData["Produtos"] as IEnumerable<PedidoWeb.Modelos.Produto>;
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold text-dark">Novo Pedido</h2>
+    <p class="text-muted">Preencha os dados abaixo para registrar uma nova venda.</p>
+</div>
+
+<form asp-action="Criar" id="formPedido">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4 rounded-4" role="alert"></div>
+
+    <div class="row">
+        <div class="col-12">
+            <!-- Card 1: Informações Básicas (Horizontal) -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <div class="row align-items-end g-3">
+                        <div class="col-md-4">
+                            <label asp-for="ClienteId" class="form-label fw-bold small text-uppercase">Cliente</label>
+                            <select asp-for="ClienteId" class="form-select form-select-lg rounded-3 border-0 bg-light" asp-items="ViewBag.ClienteId">
+                                <option value="">Selecione um cliente...</option>
+                            </select>
+                            <span asp-validation-for="ClienteId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="CondicaoPagamentoId" class="form-label fw-bold small text-uppercase">Condição de Pagamento</label>
+                            <select asp-for="CondicaoPagamentoId" class="form-select form-select-lg rounded-3 border-0 bg-light" asp-items="ViewBag.CondicaoPagamentoId">
+                                <option value="">Selecione a condição...</option>
+                            </select>
+                            <span asp-validation-for="CondicaoPagamentoId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div id="indicadorStatus" class="text-muted small mb-1" style="display:none;">
+                                <i class="bi bi-cloud-check-fill text-success"></i> Rascunho salvo <span id="horaRascunho"></span>
+                            </div>
+                            <h6 class="text-muted small text-uppercase fw-bold mb-1">Total do Pedido</h6>
+                            <h1 class="fw-bold text-primary mb-0" id="txtTotalGeral">R$ 0,00</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Adicionar Itens -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white py-3 border-0 ps-4">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-cart-plus me-2 text-primary"></i>Adicionar Itens</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-7">
+                            <label class="form-label small fw-bold text-uppercase">Produto</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                                <input type="text" id="txtProdutoDisplay" class="form-control form-control-lg border-start-0 rounded-end-3" placeholder="Clique aqui para buscar o produto..." readonly data-bs-toggle="modal" data-bs-target="#modalBuscaProduto" style="cursor: pointer; background-color: #fff;">
+                                <input type="hidden" id="selProdutoId">
+                                <input type="hidden" id="selProdutoPreco">
+                                <input type="hidden" id="selProdutoEstoque">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small fw-bold text-uppercase">Quantidade</label>
+                            <input type="number" id="txtQtd" class="form-control form-control-lg rounded-3" value="1" min="1" step="any" />
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" id="btnAddItem" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm">
+                                <i class="bi bi-plus-lg me-2"></i> Adicionar Item
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Lista de Itens -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white py-3 border-0 ps-4">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-list-check me-2 text-primary"></i>Itens do Pedido</h5>
+                </div>
+                <div class="card-body p-0">
+
+
+                    <!-- Modal de Busca Avançada -->
+                    <div class="modal fade" id="modalBuscaProduto" tabindex="-1" aria-labelledby="modalBuscaProdutoLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                            <div class="modal-content border-0 shadow-lg rounded-4">
+                                <div class="modal-header bg-primary text-white border-0 py-3">
+                                    <h5 class="modal-title fw-bold" id="modalBuscaProdutoLabel text-white">
+                                        <i class="bi bi-search me-2"></i> Buscar Produto
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-4">
+                                    <!-- Filtros -->
+                                    <div class="row g-3 mb-4 p-3 bg-light rounded-4">
+                                        <div class="col-md-3">
+                                            <label class="form-label small fw-bold text-uppercase">ID Externo</label>
+                                            <input type="text" id="fIdExterno" class="form-control form-control-sm filter-input" placeholder="ID ERP">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label small fw-bold text-uppercase">Cód. Original</label>
+                                            <input type="text" id="fCodOriginal" class="form-control form-control-sm filter-input">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label small fw-bold text-uppercase">Cód. Fábrica</label>
+                                            <input type="text" id="fCodFabrica" class="form-control form-control-sm filter-input">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label small fw-bold text-uppercase">Cód. Barras</label>
+                                            <input type="text" id="fCodBarras" class="form-control form-control-sm filter-input">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold text-uppercase">Descrição Técnica / Comercial</label>
+                                            <input type="text" id="fDescricao" class="form-control form-control-sm filter-input" placeholder="Digite para pesquisar...">
+                                        </div>
+                                        <div class="col-md-6 d-flex align-items-end gap-2">
+                                            <button type="button" id="btnFiltrarProduto" class="btn btn-primary btn-sm px-4 rounded-pill">
+                                                <i class="bi bi-funnel-fill me-1"></i> Filtrar
+                                            </button>
+                                            <button type="button" id="btnLimparFiltro" class="btn btn-outline-secondary btn-sm px-4 rounded-pill">
+                                                Limpar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tabela de Resultados -->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle small" id="tblResultadoBusca">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Descrição</th>
+                                                    <th>Original / Fábrica</th>
+                                                    <th>Estoque</th>
+                                                    <th class="text-end">Preço</th>
+                                                    <th width="50"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (produtos != null)
+                                                {
+                                                    foreach (var p in produtos)
+                                                    {
+                                                        <tr class="produto-row" 
+                                                            data-id="@p.Id" 
+                                                            data-codigo="@p.Codigo" 
+                                                            data-descricao="@p.Descricao" 
+                                                            data-desc-venda="@p.DescricaoVenda"
+                                                            data-original="@p.CodigoOriginal"
+                                                            data-fabrica="@p.CodigoFabrica"
+                                                            data-barras="@p.CodigoBarras"
+                                                            data-id-erp="@p.ProdutoIdIntegracao"
+                                                            data-preco="@p.Preco" 
+                                                            data-estoque="@p.Estoque">
+                                                            <td class="fw-bold">@p.Codigo</td>
+                                                            <td>
+                                                                <div>@p.Descricao</div>
+                                                                @if(!string.IsNullOrEmpty(p.DescricaoVenda)){
+                                                                    <div class="text-muted" style="font-size: 0.75rem;">@p.DescricaoVenda</div>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <span class="d-block">Orig: @(p.CodigoOriginal ?? "-")</span>
+                                                                <span class="d-block">Fab: @(p.CodigoFabrica ?? "-")</span>
+                                                            </td>
+                                                            <td class="@(p.Estoque > 0 ? "text-success" : "text-danger") fw-bold">@p.Estoque.ToString("N2")</td>
+                                                            <td class="text-end fw-bold">@p.Preco.ToString("C2")</td>
+                                                            <td class="text-end">
+                                                                <button type="button" class="btn btn-primary btn-sm btn-selecionar-produto rounded-pill px-3">
+                                                                    Selecionar
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="tblItens">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Qtd</th>
+                                    <th>Unitário</th>
+                                    <th>Total</th>
+                                    <th width="50"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Itens adicionados aparecerão aqui -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+            <i class="bi bi-check-lg me-2"></i> Finalizar Pedido
+        </button>
+        <a asp-action="Index" id="btnDescartar" class="btn btn-light btn-lg px-4 rounded-pill border">Descartar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let itemIndex = 0;
+        const STORAGE_KEY = 'pedido_rascunho';
+
+        function salvarRascunho() {
+            const itens = [];
+            $('#tblItens tbody tr').each(function() {
+                const row = $(this);
+                itens.push({
+                    produtoId: row.find('input[name*="ProdutoId"]').val(),
+                    produtoNome: row.find('.fw-bold').text(),
+                    quantidade: row.find('.txt-qtd-item').val(),
+                    valorUnitario: row.find('input[name*="ValorUnitario"]').val(),
+                    valorTotal: row.find('.input-total-item').val(),
+                    precoAttr: row.attr('data-preco'),
+                    totalAttr: row.attr('data-total')
+                });
+            });
+
+            const rascunho = {
+                clienteId: $('#ClienteId').val(),
+                condicaoPagamentoId: $('#CondicaoPagamentoId').val(),
+                itens: itens
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(rascunho));
+            
+            // Atualiza indicador
+            const agora = new Date();
+            $('#horaRascunho').text(agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
+            $('#indicadorStatus').fadeIn();
+        }
+
+        function carregarRascunho() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            if (!data) return;
+
+            const rascunho = JSON.parse(data);
+            if (rascunho.clienteId) $('#ClienteId').val(rascunho.clienteId);
+            if (rascunho.condicaoPagamentoId) $('#CondicaoPagamentoId').val(rascunho.condicaoPagamentoId);
+
+            if (rascunho.itens && rascunho.itens.length > 0) {
+                rascunho.itens.forEach(item => {
+                    adicionarLinhaItem(item.produtoId, item.produtoNome, parseFloat(item.precoAttr), parseFloat(item.quantidade.replace(',', '.')));
+                });
+            }
+        }
+
+        function limparRascunho() {
+            localStorage.removeItem(STORAGE_KEY);
+        }
+
+        $(document).ready(function() {
+            carregarRascunho();
+            
+            $('#ClienteId, #CondicaoPagamentoId').change(salvarRascunho);
+            
+            $('#formPedido').submit(function() {
+                limparRascunho();
+            });
+
+            $('#btnDescartar').click(function(e) {
+                e.preventDefault();
+                if (confirm('Deseja realmente descartar este rascunho? Todos os dados não salvos serão perdidos.')) {
+                    limparRascunho();
+                    window.location.href = $(this).attr('href');
+                }
+            });
+        });
+
+        function adicionarLinhaItem(produtoId, produtoNome, preco, qtd) {
+            const totalItem = preco * qtd;
+            // No dataset tr: guardamos o numero JS bruto (dot), no value dos inputs guardamos pt-BR (comma)
+            const row = `
+                <tr data-total="${totalItem}" data-preco="${preco}">
+                    <td class="ps-4">
+                        <input type="hidden" class="input-produto-id" value="${produtoId}" />
+                        <span class="fw-bold text-dark">${produtoNome}</span>
+                    </td>
+                    <td style="width: 120px;">
+                        <input type="text" value="${qtd.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}" 
+                               class="form-control form-control-sm rounded-3 txt-qtd-item" />
+                    </td>
+                    <td>
+                        <input type="hidden" class="input-unitario" value="${preco.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}" />
+                        ${preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                    </td>
+                    <td class="fw-bold text-dark span-total-item">
+                        ${totalItem.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                        <input type="hidden" class="input-total-item" value="${totalItem.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-link text-danger btn-remove-item p-0" onclick="$(this).closest('tr').remove(); reindexarItens(); calcularTotalGeral(); salvarRascunho();">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+            $('#tblItens tbody').append(row);
+            reindexarItens();
+            calcularTotalGeral();
+            salvarRascunho();
+        }
+
+        function reindexarItens() {
+            $('#tblItens tbody tr').each(function(index) {
+                const row = $(this);
+                row.find('.input-produto-id').attr('name', `itens[${index}].ProdutoId`);
+                row.find('.txt-qtd-item').attr('name', `itens[${index}].Quantidade`);
+                row.find('.input-unitario').attr('name', `itens[${index}].ValorUnitario`);
+                row.find('.input-total-item').attr('name', `itens[${index}].ValorTotal`);
+            });
+        }
+
+        function calcularTotalGeral() {
+            let total = 0;
+            $('#tblItens tbody tr').each(function() {
+                const totalItemAttr = $(this).attr('data-total');
+                if (totalItemAttr) {
+                    const totalItem = parseFloat(totalItemAttr.toString().replace(',', '.'));
+                    if (!isNaN(totalItem)) total += totalItem;
+                }
+            });
+            $('#txtTotalGeral').text(total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+        }
+
+        // Selecionar Produto do Modal
+        $(document).on('click', '.btn-selecionar-produto', function() {
+            const row = $(this).closest('tr');
+            const id = row.data('id');
+            const codigo = row.data('codigo');
+            const desc = row.data('descricao');
+            const preco = parseFloat(row.data('preco').toString().replace(',', '.'));
+            const estoque = parseFloat(row.data('estoque').toString().replace(',', '.'));
+
+            $('#selProdutoId').val(id);
+            $('#selProdutoPreco').val(preco);
+            $('#selProdutoEstoque').val(estoque);
+            $('#txtProdutoDisplay').val(`${codigo} - ${desc}`);
+
+            bootstrap.Modal.getInstance($('#modalBuscaProduto')).hide();
+            $('#txtQtd').focus();
+        });
+
+        $('#btnAddItem').click(function() {
+            const produtoId = $('#selProdutoId').val();
+            const produtoNome = $('#txtProdutoDisplay').val();
+            const preco = parseFloat($('#selProdutoPreco').val());
+            const estoque = parseFloat($('#selProdutoEstoque').val());
+            const qtdInput = $('#txtQtd').val();
+            const qtd = parseFloat(qtdInput.toString().replace(',', '.'));
+
+            if (!produtoId) {
+                alert('Selecione um produto utilizando a busca.');
+                $('#modalBuscaProduto').modal('show');
+                return;
+            }
+
+            if (isNaN(qtd) || qtd <= 0) {
+                alert('Informe uma quantidade válida.');
+                return;
+            }
+
+            if (qtd > estoque) {
+                alert('Estoque insuficiente para o produto ' + produtoNome + '. Disponível: ' + estoque.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+                return;
+            }
+
+            adicionarLinhaItem(produtoId, produtoNome, preco, qtd);
+            
+            // Limpa campos
+            $('#selProdutoId').val('');
+            $('#selProdutoPreco').val('');
+            $('#selProdutoEstoque').val('');
+            $('#txtProdutoDisplay').val('');
+            $('#txtQtd').val(1);
+        });
+
+        // Recálculo dinâmico ao alterar quantidade
+        $(document).on('change keyup', '.txt-qtd-item', function() {
+            const row = $(this).closest('tr');
+            const qtdInput = $(this).val();
+            const qtd = parseFloat(qtdInput.toString().replace(',', '.'));
+            const precoAttr = row.attr('data-preco');
+            const preco = parseFloat(precoAttr.toString().replace(',', '.'));
+            
+            if (!isNaN(qtd) && !isNaN(preco)) {
+                const novoTotal = qtd * preco;
+                row.attr('data-total', novoTotal);
+                row.find('.span-total-item').contents().first().replaceWith(novoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + ' ');
+        row.find('.input-total-item').val(novoTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+                calcularTotalGeral();
+                salvarRascunho();
+            }
+        });
+        // Ação de Filtrar via AJAX
+        $('#btnFiltrarProduto').click(function() {
+            const termo = $('#fDescricao').val();
+            const idExterno = $('#fIdExterno').val();
+            const codOriginal = $('#fCodOriginal').val();
+            const codFabrica = $('#fCodFabrica').val();
+            const codBarras = $('#fCodBarras').val();
+
+            if (!termo && !idExterno && !codOriginal && !codFabrica && !codBarras) {
+                alert('Informe ao menos um critério para pesquisar.');
+                return;
+            }
+
+            const tbody = $('#tblResultadoBusca tbody');
+            tbody.html('<tr><td colspan="6" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div><div class="mt-2 text-muted">Buscando produtos...</div></td></tr>');
+
+            $.ajax({
+                url: '/Pedidos/BuscarProdutos',
+                type: 'GET',
+                data: { 
+                    termo: termo, 
+                    idExterno: idExterno,
+                    codigoOriginal: codOriginal,
+                    codigoFabrica: codFabrica,
+                    codigoBarras: codBarras
+                },
+                success: function(produtos) {
+                    tbody.empty();
+                    if (produtos.length === 0) {
+                        tbody.html('<tr><td colspan="6" class="text-center text-muted py-4">Nenhum produto encontrado com os filtros informados.</td></tr>');
+                        return;
+                    }
+
+                    produtos.forEach(p => {
+                        const preco = p.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                        const estoque = p.estoque.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                        const estoqueClass = p.estoque > 0 ? 'text-success' : 'text-danger';
+                        
+                        const row = `
+                            <tr class="produto-row" 
+                                data-id="${p.id}" 
+                                data-codigo="${p.codigo}" 
+                                data-descricao="${p.descricao}" 
+                                data-preco="${p.preco}" 
+                                data-estoque="${p.estoque}">
+                                <td class="fw-bold">${p.codigo}</td>
+                                <td>
+                                    <div>${p.descricao}</div>
+                                    ${p.descricaoVenda ? `<div class="text-muted" style="font-size: 0.75rem;">${p.descricaoVenda}</div>` : ''}
+                                </td>
+                                <td>
+                                    <span class="d-block">Orig: ${p.codigoOriginal || "-"}</span>
+                                    <span class="d-block">Fab: ${p.codigoFabrica || "-"}</span>
+                                </td>
+                                <td class="${estoqueClass} fw-bold">${estoque}</td>
+                                <td class="text-end fw-bold">${preco}</td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-primary btn-sm btn-selecionar-produto rounded-pill px-3">
+                                        Selecionar
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        tbody.append(row);
+                    });
+                },
+                error: function() {
+                    tbody.html('<tr><td colspan="6" class="text-center text-danger py-4">Ocorreu um erro ao buscar os produtos. Tente novamente.</td></tr>');
+                }
+            });
+        });
+
+        $('#btnLimparFiltro').click(function() {
+            $('.filter-input').val('');
+            $('#tblResultadoBusca tbody').empty();
+        });
+    </script>
+
+}

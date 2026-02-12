@@ -1,0 +1,28 @@
+@model PedidoWeb.Modelos.CondicaoPagamento
+
+@{
+    ViewData["Title"] = "Excluir Condição de Pagamento";
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold text-dark">Excluir Condição</h2>
+    <p class="text-danger">Tem certeza que deseja excluir esta condição de pagamento? Esta ação não pode ser desfeita.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 text-center">
+                <i class="bi bi-exclamation-triangle text-warning display-1 mb-3"></i>
+                <h4 class="fw-bold">@Model.Descricao</h4>
+                <p class="text-muted">@Model.QuantidadeParcelas parcela(s) com intervalo de @Model.IntervaloDias dias.</p>
+                
+                <form asp-action="Excluir" class="mt-4 pt-3 border-top d-flex justify-content-center gap-2">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger btn-lg px-5 rounded-pill shadow-sm">Sim, Excluir</button>
+                    <a asp-action="Index" class="btn btn-light btn-lg px-4 rounded-pill border">Não, Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

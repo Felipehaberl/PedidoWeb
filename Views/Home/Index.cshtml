@@ -1,0 +1,170 @@
+﻿@model PedidoWeb.Modelos.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="fw-bold text-dark">Bem-vindo ao PedidoWeb</h2>
+        <p class="text-muted">Aqui está o resumo das suas atividades e carteira de clientes.</p>
+    </div>
+</div>
+
+<!-- Dashboard Stats -->
+<div class="row g-4 mb-5">
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted mb-2 text-uppercase fw-bold ls-1" style="font-size: 0.75rem;">Não Autorizados</h6>
+                        <h3 class="mb-0 fw-bold">@Model.QtdNaoAutorizados</h3>
+                    </div>
+                    <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-3">
+                        <i class="bi bi-clock-history fs-3"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted small">Status: Aberto</span>
+                </div>
+            </div>
+            <div class="bg-warning" style="height: 4px;"></div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted mb-2 text-uppercase fw-bold ls-1" style="font-size: 0.75rem;">Autorizados</h6>
+                        <h3 class="mb-0 fw-bold">@Model.QtdAutorizados</h3>
+                    </div>
+                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-3">
+                        <i class="bi bi-check2-circle fs-3"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted small">Prontos para faturar</span>
+                </div>
+            </div>
+            <div class="bg-success" style="height: 4px;"></div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted mb-2 text-uppercase fw-bold ls-1" style="font-size: 0.75rem;">Total em Vendas</h6>
+                        <h3 class="mb-0 fw-bold">@Model.ValorTotalPedidos.ToString("C2")</h3>
+                    </div>
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-3">
+                        <i class="bi bi-currency-dollar fs-3"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted small">Soma de todos os pedidos</span>
+                </div>
+            </div>
+            <div class="bg-primary bg-opacity-100" style="height: 4px; background-color: var(--primary-color) !important;"></div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted mb-2 text-uppercase fw-bold ls-1" style="font-size: 0.75rem;">Produtos no Mix</h6>
+                        <h3 class="mb-0 fw-bold">@Model.QtdProdutos</h3>
+                    </div>
+                    <div class="bg-info bg-opacity-10 text-info p-3 rounded-3">
+                        <i class="bi bi-box-seam fs-3"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted small">Catálogo geral de itens</span>
+                </div>
+            </div>
+            <div class="bg-info" style="height: 4px;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-header bg-white py-3 border-0">
+                <h5 class="mb-0 fw-bold">Últimos Pedidos da sua Carteira</h5>
+            </div>
+            <div class="table-responsive p-3">
+                <table class="table table-hover align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="border-0">ID</th>
+                            <th class="border-0">Cliente</th>
+                            <th class="border-0">Data</th>
+                            <th class="border-0">Valor</th>
+                            <th class="border-0">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var pedido in Model.ÚltimosPedidos)
+                        {
+                            <tr>
+                                <td class="fw-bold">#@pedido.Id.ToString("D4")</td>
+                                <td>@pedido.Cliente?.Nome</td>
+                                <td>@pedido.Data.ToString("dd/MM/yyyy")</td>
+                                <td class="fw-bold text-dark">@pedido.ValorTotal.ToString("C2")</td>
+                                <td>
+                                    @switch (pedido.Status)
+                                    {
+                                        case PedidoWeb.Modelos.StatusPedido.Aberto:
+                                            <span class="badge bg-warning bg-opacity-10 text-warning px-3 rounded-pill">Aberto</span>
+                                            break;
+                                        case PedidoWeb.Modelos.StatusPedido.Autorizado:
+                                            <span class="badge bg-success bg-opacity-10 text-success px-3 rounded-pill">Autorizado</span>
+                                            break;
+                                        case PedidoWeb.Modelos.StatusPedido.Cancelado:
+                                            <span class="badge bg-danger bg-opacity-10 text-danger px-3 rounded-pill">Cancelado</span>
+                                            break;
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @if (!Model.ÚltimosPedidos.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">Nenhum pedido encontrado.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-header bg-white py-3 border-0">
+                <h5 class="mb-0 fw-bold">Ações Rápidas</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-controller="Pedidos" asp-action="Criar" class="btn btn-outline-primary text-start p-3 rounded-3 shadow-none border-1">
+                        <i class="bi bi-plus-circle me-2"></i> Novo Pedido
+                    </a>
+                    <a asp-controller="Produtos" asp-action="Index" class="btn btn-outline-dark text-start p-3 rounded-3 shadow-none border-1">
+                        <i class="bi bi-box-seam me-2"></i> Consultar Estoque
+                    </a>
+                    <a asp-controller="Clientes" asp-action="Index" class="btn btn-outline-dark text-start p-3 rounded-3 shadow-none border-1">
+                        <i class="bi bi-people me-2"></i> Minha Carteira
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

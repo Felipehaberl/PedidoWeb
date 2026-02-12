@@ -1,0 +1,45 @@
+@model PedidoWeb.Modelos.Produto
+
+@{
+    ViewData["Title"] = "Detalhes do Produto";
+}
+
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Produtos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Codigo</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="fw-bold text-dark mb-0">Dados do Produto</h2>
+        <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-primary rounded-pill px-4">
+            <i class="bi bi-pencil me-2"></i> Editar Produto
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body p-0">
+                <div class="bg-light p-4 border-bottom">
+                    <div class="badge bg-primary rounded-pill px-3 py-1 mb-2">SKU: @Model.Codigo</div>
+                    <h3 class="fw-bold text-dark">@Model.Descricao</h3>
+                </div>
+                <div class="p-4">
+                    <div class="row g-4 mb-4">
+                        <div class="col-6">
+                            <label class="text-muted small text-uppercase fw-bold d-block mb-1">Preço de Venda</label>
+                            <span class="fs-4 fw-bold text-primary">@Model.Preco.ToString("C2")</span>
+                        </div>
+                        <div class="col-6">
+                            <label class="text-muted small text-uppercase fw-bold d-block mb-1">Estoque Disponível</label>
+                            <span class="fs-4 @(Model.Estoque > 0 ? "text-success" : "text-danger") fw-bold">@Model.Estoque.ToString("N2")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

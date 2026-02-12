@@ -1,0 +1,110 @@
+@model PedidoWeb.Modelos.Produto
+
+@{
+    ViewData["Title"] = "Novo Produto";
+    bool modoIntegracao = ViewBag.ModoIntegracao ?? false;
+}
+
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Produtos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Novo</li>
+        </ol>
+    </nav>
+    <h2 class="fw-bold text-dark">Cadastrar Produto</h2>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                
+                @if (modoIntegracao)
+                {
+                    <div class="alert alert-warning border-0 shadow-sm rounded-3 mb-4">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> 
+                        <strong>Modo Integração Ativo:</strong> O cadastro manual está bloqueado. Novos produtos devem ser importados do ERP.
+                    </div>
+                }
+
+                <form asp-action="Criar">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <fieldset disabled="@(modoIntegracao ? "disabled" : null)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Codigo" class="form-label fw-bold small text-uppercase">Código Interno</label>
+                                <input asp-for="Codigo" class="form-control form-control-lg rounded-3" placeholder="Ex: PROD001" />
+                                <span asp-validation-for="Codigo" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="ProdutoIdIntegracao" class="form-label fw-bold small text-uppercase">ID Externo (ERP)</label>
+                                <input asp-for="ProdutoIdIntegracao" class="form-control form-control-lg rounded-3" placeholder="ID no sistema de origem" />
+                                <span asp-validation-for="ProdutoIdIntegracao" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label asp-for="Descricao" class="form-label fw-bold small text-uppercase">Descrição Técnica</label>
+                                <input asp-for="Descricao" class="form-control form-control-lg rounded-3" placeholder="Ex: Amortecedor Dianteiro L/D" />
+                                <span asp-validation-for="Descricao" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label asp-for="DescricaoVenda" class="form-label fw-bold small text-uppercase">Descrição de Venda (Comercial)</label>
+                                <textarea asp-for="DescricaoVenda" class="form-control rounded-3" rows="2" placeholder="Descrição que aparecerá para o cliente"></textarea>
+                                <span asp-validation-for="DescricaoVenda" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="CodigoOriginal" class="form-label fw-bold small text-uppercase">Cód. Original</label>
+                                <input asp-for="CodigoOriginal" class="form-control rounded-3" />
+                                <span asp-validation-for="CodigoOriginal" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="CodigoFabrica" class="form-label fw-bold small text-uppercase">Cód. Fábrica</label>
+                                <input asp-for="CodigoFabrica" class="form-control rounded-3" />
+                                <span asp-validation-for="CodigoFabrica" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="CodigoBarras" class="form-label fw-bold small text-uppercase">Cód. Barras</label>
+                                <input asp-for="CodigoBarras" class="form-control rounded-3" />
+                                <span asp-validation-for="CodigoBarras" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Preco" class="form-label fw-bold small text-uppercase">Preço de Venda</label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light border-end-0">R$</span>
+                                    <input asp-for="Preco" type="text" data-val="false" class="form-control rounded-3 border-start-0" placeholder="0,00" />
+                                </div>
+                                <span asp-validation-for="Preco" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Estoque" class="form-label fw-bold small text-uppercase">Estoque Inicial</label>
+                                <input asp-for="Estoque" type="text" data-val="false" class="form-control form-control-lg rounded-3" placeholder="0,00" />
+                                <span asp-validation-for="Estoque" class="text-danger small"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-5 pt-3 border-top d-flex gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+                                <i class="bi bi-check-lg me-2"></i> Salvar Produto
+                            </button>
+                            <a asp-action="Index" class="btn btn-light btn-lg px-4 rounded-pill border">Cancelar</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

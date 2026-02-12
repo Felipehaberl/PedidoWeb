@@ -1,0 +1,30 @@
+@model PedidoWeb.Modelos.Cliente
+
+@{
+    ViewData["Title"] = "Excluir Cliente";
+}
+
+<div class="mb-4 text-center">
+    <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+        <i class="bi bi-trash fs-1"></i>
+    </div>
+    <h2 class="fw-bold text-dark">Excluir Cliente?</h2>
+    <p class="text-muted">Você está prestes a excluir o cliente abaixo. Esta ação é irreversível.</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-4 text-center">
+                <h4 class="fw-bold text-dark mb-1">@Model.Nome</h4>
+                <p class="text-muted mb-4">CPF/CNPJ: @Model.CpfCnpj</p>
+                
+                <form asp-action="Excluir" class="d-grid gap-2">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger btn-lg rounded-pill shadow-sm">Sim, Confirmar Exclusão</button>
+                    <a asp-action="Index" class="btn btn-light btn-lg rounded-pill border">Não, Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

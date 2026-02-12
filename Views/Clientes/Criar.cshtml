@@ -1,0 +1,82 @@
+@model PedidoWeb.Modelos.Cliente
+
+@{
+    ViewData["Title"] = "Novo Cliente";
+    bool modoIntegracao = ViewBag.ModoIntegracao ?? false;
+}
+
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Clientes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Novo</li>
+        </ol>
+    </nav>
+    <h2 class="fw-bold text-dark">Cadastrar Cliente</h2>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                
+                @if (modoIntegracao)
+                {
+                    <div class="alert alert-warning border-0 shadow-sm rounded-3 mb-4">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> 
+                        <strong>Modo Integração Ativo:</strong> O cadastro manual está bloqueado. Novos clientes devem ser importados do ERP.
+                    </div>
+                }
+
+                <form asp-action="Criar">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <fieldset disabled="@(modoIntegracao ? "disabled" : null)">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label asp-for="Nome" class="form-label fw-bold small text-uppercase">Nome Completo / Razão Social</label>
+                                <input asp-for="Nome" class="form-control form-control-lg rounded-3" placeholder="Digite o nome" />
+                                <span asp-validation-for="Nome" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="CpfCnpj" class="form-label fw-bold small text-uppercase">CPF / CNPJ</label>
+                                <input asp-for="CpfCnpj" class="form-control form-control-lg rounded-3" placeholder="000.000.000-00" />
+                                <span asp-validation-for="CpfCnpj" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label fw-bold small text-uppercase">E-mail</label>
+                                <input asp-for="Email" class="form-control form-control-lg rounded-3" placeholder="contato@empresa.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Telefone" class="form-label fw-bold small text-uppercase">Telefone</label>
+                                <input asp-for="Telefone" class="form-control form-control-lg rounded-3" placeholder="(00) 00000-0000" />
+                                <span asp-validation-for="Telefone" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label asp-for="Endereco" class="form-label fw-bold small text-uppercase">Endereço Completo</label>
+                                <textarea asp-for="Endereco" class="form-control rounded-3" rows="3" placeholder="Rua, Número, Bairro, Cidade - UF"></textarea>
+                                <span asp-validation-for="Endereco" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-3 border-top d-flex gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+                                <i class="bi bi-check-lg me-2"></i> Salvar Cliente
+                            </button>
+                            <a asp-action="Index" class="btn btn-light btn-lg px-4 rounded-pill border">Cancelar</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

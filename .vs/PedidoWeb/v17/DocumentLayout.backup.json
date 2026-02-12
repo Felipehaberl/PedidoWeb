@@ -1,0 +1,263 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\GIT\\PedidoWeb\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\servicos\\integracaocesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:servicos\\integracaocesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\views\\pedidos\\criar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:views\\pedidos\\criar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\views\\pedidos\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:views\\pedidos\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\controllers\\pedidoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:controllers\\pedidoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\data\\migrations\\20260206043024_adicionarentidadespedidoweb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:data\\migrations\\20260206043024_adicionarentidadespedidoweb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\connected services\\servicereference1\\reference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:connected services\\servicereference1\\reference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\connected services\\servicereference1\\connectedservice.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:connected services\\servicereference1\\connectedservice.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\controllers\\usuariosclientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:controllers\\usuariosclientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\views\\clientes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:views\\clientes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|c:\\git\\pedidoweb\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C80B754-D396-42F0-A5B1-9500EFF72B5C}|PedidoWeb.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Views\\Pedidos\\Editar.cshtml",
+              "RelativeDocumentMoniker": "Views\\Pedidos\\Editar.cshtml",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Views\\Pedidos\\Editar.cshtml",
+              "RelativeToolTip": "Views\\Pedidos\\Editar.cshtml",
+              "ViewState": "AgIAAL8BAAAAAAAAAAAAAPkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-09T18:45:27.615Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Criar.cshtml",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Views\\Pedidos\\Criar.cshtml",
+              "RelativeDocumentMoniker": "Views\\Pedidos\\Criar.cshtml",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Views\\Pedidos\\Criar.cshtml",
+              "RelativeToolTip": "Views\\Pedidos\\Criar.cshtml",
+              "ViewState": "AgIAAL4BAAAAAAAAAAAAAMABAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-09T03:18:23.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T02:53:19.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UsuariosClientesController.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Controllers\\UsuariosClientesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsuariosClientesController.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Controllers\\UsuariosClientesController.cs",
+              "RelativeToolTip": "Controllers\\UsuariosClientesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-07T02:22:38.572Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ConnectedService.json",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Connected Services\\ServiceReference1\\ConnectedService.json",
+              "RelativeDocumentMoniker": "Connected Services\\ServiceReference1\\ConnectedService.json",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Connected Services\\ServiceReference1\\ConnectedService.json",
+              "RelativeToolTip": "Connected Services\\ServiceReference1\\ConnectedService.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-07T00:33:58.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Reference.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Connected Services\\ServiceReference1\\Reference.cs",
+              "RelativeDocumentMoniker": "Connected Services\\ServiceReference1\\Reference.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Connected Services\\ServiceReference1\\Reference.cs",
+              "RelativeToolTip": "Connected Services\\ServiceReference1\\Reference.cs",
+              "ViewState": "AgIAAOYXAAAAAAAAAAAlwAQYAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-07T00:33:56.64Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Views\\Clientes\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Clientes\\Index.cshtml",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Views\\Clientes\\Index.cshtml",
+              "RelativeToolTip": "Views\\Clientes\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-07T00:20:43.709Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PedidosController.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Controllers\\PedidosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PedidosController.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Controllers\\PedidosController.cs",
+              "RelativeToolTip": "Controllers\\PedidosController.cs",
+              "ViewState": "AgIAADwBAAAAAAAAAAAUwGYBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-06T18:31:23.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "20260206043024_AdicionarEntidadesPedidoWeb.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Data\\Migrations\\20260206043024_AdicionarEntidadesPedidoWeb.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\20260206043024_AdicionarEntidadesPedidoWeb.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Data\\Migrations\\20260206043024_AdicionarEntidadesPedidoWeb.cs",
+              "RelativeToolTip": "Data\\Migrations\\20260206043024_AdicionarEntidadesPedidoWeb.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAMwH0AAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-09T02:53:38.358Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IntegracaoCesService.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Servicos\\IntegracaoCesService.cs",
+              "RelativeDocumentMoniker": "Servicos\\IntegracaoCesService.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Servicos\\IntegracaoCesService.cs",
+              "RelativeToolTip": "Servicos\\IntegracaoCesService.cs",
+              "ViewState": "AgIAADYBAAAAAAAAAAAowE8BAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-07T00:09:09.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ClientesController.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Controllers\\ClientesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClientesController.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Controllers\\ClientesController.cs",
+              "RelativeToolTip": "Controllers\\ClientesController.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAhwJMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-07T00:41:30.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-06T18:02:26.068Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAALgAAAAAAAAAAAAAANYAAACGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-06T03:11:49.612Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-06T02:52:36.154Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\GIT\\PedidoWeb\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\GIT\\PedidoWeb\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-06T02:52:26.831Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

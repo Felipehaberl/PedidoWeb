@@ -1,0 +1,96 @@
+@model IEnumerable<PedidoWeb.Modelos.Cliente>
+@using Microsoft.AspNetCore.Identity
+
+@{
+    var usuario = ViewBag.Usuario as IdentityUser;
+    var clientesDoUsuario = ViewBag.ClientesDoUsuario as List<int>;
+    ViewData["Title"] = "Gerenciar Carteira - " + usuario?.UserName;
+}
+
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Carteira de Clientes</a></li>
+            <li class="breadcrumb-item active">@usuario?.UserName</li>
+        </ol>
+    </nav>
+    <h2 class="fw-bold text-dark">Gerenciar Carteira</h2>
+    <p class="text-muted">Selecione abaixo os clientes que o usuário <strong>@usuario?.UserName</strong> terá acesso.</p>
+</div>
+
+<form asp-action="SalvarVinculos" method="post">
+    <input type="hidden" name="usuarioId" value="@usuario?.Id" />
+    
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+        <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold">Lista de Clientes Disponíveis</h5>
+            <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-secondary" onclick="marcarTodos(true)">Marcar Todos</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="marcarTodos(false)">Desmarcar Todos</button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                <table class="table table-hover align-middle mb-0" id="tblEscolhaClientes">
+                    <thead class="bg-light sticky-top">
+                        <tr>
+                            <th class="ps-4" width="40">
+                                <i class="bi bi-check2-square"></i>
+                            </th>
+                            <th>Cliente / Razão Social</th>
+                            <th>CPF / CNPJ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cliente in Model)
+                        {
+                            var selecionado = clientesDoUsuario?.Contains(cliente.Id) ?? false;
+                            <tr @(selecionado ? "class=table-primary" : "") onclick="toggleRow(this)">
+                                <td class="ps-4">
+                                    <input type="checkbox" name="clientesSelecionados" value="@cliente.Id" 
+                                           class="form-check-input chk-cliente" @(selecionado ? "checked" : "") 
+                                           onclick="event.stopPropagation(); updateRowStyle(this)" />
+                                </td>
+                                <td class="fw-bold">@cliente.Nome</td>
+                                <td class="text-muted small">@cliente.CpfCnpj</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+            <i class="bi bi-save me-2"></i> Atualizar Carteira
+        </button>
+        <a asp-action="Index" class="btn btn-light btn-lg px-4 rounded-pill border">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        function toggleRow(row) {
+            const chk = row.querySelector('.chk-cliente');
+            chk.checked = !chk.checked;
+            updateRowStyle(chk);
+        }
+
+        function updateRowStyle(chk) {
+            const row = chk.closest('tr');
+            if (chk.checked) {
+                row.classList.add('table-primary');
+            } else {
+                row.classList.remove('table-primary');
+            }
+        }
+
+        function marcarTodos(status) {
+            document.querySelectorAll('.chk-cliente').forEach(chk => {
+                chk.checked = status;
+                updateRowStyle(chk);
+            });
+        }
+    </script>
+}

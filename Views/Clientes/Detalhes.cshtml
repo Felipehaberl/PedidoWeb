@@ -1,0 +1,60 @@
+@model PedidoWeb.Modelos.Cliente
+
+@{
+    ViewData["Title"] = "Detalhes do Cliente";
+}
+
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Clientes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Nome</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="fw-bold text-dark mb-0">Detalhes do Cliente</h2>
+        <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-outline-primary rounded-pill px-4">
+            <i class="bi bi-pencil me-2"></i> Editar Dados
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body text-center p-5">
+                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px;">
+                    <i class="bi bi-person-badge-fill display-4"></i>
+                </div>
+                <h4 class="fw-bold">@Model.Nome</h4>
+                <p class="text-muted">ID #@Model.Id.ToString("D4")</p>
+                <div class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 mt-2">Cliente Ativo</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6 border-bottom pb-3">
+                        <label class="text-muted small text-uppercase fw-bold d-block">CPF / CNPJ</label>
+                        <span class="fs-5 fw-semibold text-dark">@Model.CpfCnpj</span>
+                    </div>
+                    <div class="col-md-6 border-bottom pb-3">
+                        <label class="text-muted small text-uppercase fw-bold d-block">E-mail</label>
+                        <span class="fs-5 fw-semibold text-dark">@Model.Email</span>
+                    </div>
+                    <div class="col-md-6 border-bottom pb-3">
+                        <label class="text-muted small text-uppercase fw-bold d-block">Telefone</label>
+                        <span class="fs-5 fw-semibold text-dark">@Model.Telefone</span>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="text-muted small text-uppercase fw-bold d-block">Endereço</label>
+                        <span class="fs-5 fw-semibold text-dark">@Model.Endereco</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

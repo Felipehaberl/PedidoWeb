@@ -1,0 +1,342 @@
+﻿@using PedidoWeb.Modelos
+@inject PedidoWeb.Data.ApplicationDbContext DbContext
+@{
+    var empresaLayout = DbContext.Empresas.FirstOrDefault();
+}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PedidoWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-orange: #ff8c2e;
+            --sidebar-bg: #ffffff;
+            --content-bg: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-gray: #7f8c8d;
+        }
+
+        body {
+            background-color: var(--content-bg);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling Light */
+        #sidebar {
+            width: var(--sidebar-width);
+            min-height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid #edf2f7;
+            transition: all 0.3s;
+            position: fixed;
+            z-index: 1000;
+        }
+
+        #sidebar .sidebar-header {
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        #sidebar .logo-box {
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        #sidebar .brand-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1a365d;
+            letter-spacing: -0.5px;
+        }
+
+        #sidebar ul.components {
+            padding: 10px 15px;
+        }
+
+        #sidebar ul li {
+            margin-bottom: 4px;
+        }
+
+        #sidebar ul li a {
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        #sidebar ul li a i {
+            font-size: 1.2rem;
+            margin-right: 12px;
+            width: 24px;
+            text-align: center;
+        }
+
+        #sidebar ul li a:hover {
+            background: #fff5eb;
+            color: var(--primary-orange);
+        }
+
+        #sidebar ul li.active > a {
+            background: #fff5eb;
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        #sidebar ul li.active > a::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 4px;
+            height: 24px;
+            background: var(--primary-orange);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .dropdown-toggle::after {
+            display: inline-block;
+            margin-left: auto;
+            vertical-align: 0.255em;
+            content: "";
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0;
+            border-left: 0.3em solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .dropdown-toggle[aria-expanded="true"]::after {
+            transform: rotate(180deg);
+        }
+
+        /* Submenu styling */
+        .submenu {
+            padding-left: 20px;
+            margin-top: 2px;
+        }
+
+        .submenu a {
+            font-size: 0.88rem !important;
+            padding: 8px 15px !important;
+        }
+
+        /* Content Area */
+        #content {
+            width: calc(100% - var(--sidebar-width));
+            margin-left: var(--sidebar-width);
+            transition: all 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-custom {
+            background: transparent;
+            padding: 20px 30px;
+        }
+
+        .main-container {
+            padding: 10px 30px 30px 30px;
+            flex: 1 0 auto;
+        }
+
+        footer.footer {
+            flex-shrink: 0;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        /* Responsive */
+        @@media (max-width: 992px) {
+            #sidebar { margin-left: calc(-1 * var(--sidebar-width)); }
+            #content { width: 100%; margin-left: 0; }
+            #sidebar.active { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                @if (empresaLayout?.LogomarcaPath != null)
+                {
+                    <img src="@empresaLayout.LogomarcaPath" alt="Logo" class="rounded me-2" style="max-height: 40px; max-width: 40px; object-fit: contain;" />
+                }
+                else
+                {
+                    <div class="logo-box">
+                        <i class="bi bi-box-seam-fill"></i>
+                    </div>
+                }
+                <span class="brand-name">@(empresaLayout?.NomeFantasia ?? "PedidoWeb")</span>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                    <a asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                    </a>
+                </li>
+
+                @if (User.IsInRole(RolesNomes.Admin))
+                {
+                    <li>
+                        <a href="#cadastrosSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="bi bi-folder-fill"></i> Cadastros
+                        </a>
+                        <ul class="collapse list-unstyled submenu" id="cadastrosSubmenu">
+                            <li><a asp-controller="Clientes" asp-action="Index"><i class="bi bi-people me-2"></i> Clientes</a></li>
+                            <li><a asp-controller="UsuariosClientes" asp-action="Index"><i class="bi bi-shield-lock me-2"></i> Acessos / Carteira</a></li>
+                            <li><a asp-controller="Produtos" asp-action="Index"><i class="bi bi-box me-2"></i> Produto</a></li>
+                            <li><a asp-controller="CondicoesPagamento" asp-action="Index"><i class="bi bi-credit-card me-2"></i> Condições Pago.</a></li>
+                            <li><a asp-controller="Empresas" asp-action="Index"><i class="bi bi-building me-2"></i> Minha Empresa</a></li>
+                        </ul>
+                    </li>
+                }
+
+                <li class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Pedidos" ? "active" : "")">
+                    <a href="#pedidosSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="bi bi-cart-fill"></i> Pedidos
+                    </a>
+                    <ul class="collapse list-unstyled submenu" id="pedidosSubmenu">
+                        <li><a asp-controller="Pedidos" asp-action="Criar"><i class="bi bi-plus-circle me-2"></i> Novo Pedido</a></li>
+                        <li><a asp-controller="Pedidos" asp-action="Index"><i class="bi bi-card-list me-2"></i> Meus Pedidos</a></li>
+                        @if (User.IsInRole(RolesNomes.Admin))
+                        {
+                            <li><a href="#"><i class="bi bi-check-circle me-2"></i> Para Autorizar</a></li>
+                        }
+                    </ul>
+                </li>
+
+                @* <li> *@
+                @*     <a href="#estoqueSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> *@
+                @*         <i class="bi bi-box-fill"></i> Estoque *@
+                @*     </a> *@
+                @*     <ul class="collapse list-unstyled submenu" id="estoqueSubmenu"> *@
+                        
+                @*         <li><a href="#"><i class="bi bi-arrow-left-right me-2"></i> Movimentação</a></li> *@
+                @*     </ul> *@
+                @* </li> *@
+
+                @* <li> *@
+                @*     <a href="#financeiroSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> *@
+                @*         <i class="bi bi-currency-dollar"></i> Financeiro *@
+                @*     </a> *@
+                @*     <ul class="collapse list-unstyled submenu" id="financeiroSubmenu"> *@
+                @*         <li><a asp-controller="CondicoesPagamento" asp-action="Index"><i class="bi bi-credit-card me-2"></i> Condições Pago.</a></li> *@
+                @*         <li><a href="#"><i class="bi bi-arrow-down-circle me-2"></i> Contas a Pagar</a></li> *@
+                @*     </ul> *@
+                @* </li> *@
+
+
+                <li>
+                    <a href="#">
+                        <i class="bi bi-bar-chart-line-fill"></i> Relatórios
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-custom">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-light border d-lg-none me-3">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    
+                    <div class="text-muted small">
+                        <span class="fw-semibold text-dark">Admin User</span>
+                    </div>
+
+                    <div class="ms-auto d-flex align-items-center">
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+
+
+            <div class="main-container">
+                <main role="main">
+                    @if (TempData["MensagemSucesso"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm border-0 mb-4" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i> @TempData["MensagemSucesso"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    @if (TempData["MensagemErro"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm border-0 mb-4" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["MensagemErro"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    @RenderBody()
+                </main>
+            </div>
+            
+            <footer class="footer mt-auto py-3 bg-white text-muted border-top">
+                <div class="container-fluid text-center">
+                    <span class="small">
+                        &copy; @DateTime.Now.Year - @(empresaLayout?.RazaoSocial ?? "Minha Empresa") 
+                        @if (!string.IsNullOrEmpty(empresaLayout?.Cnpj))
+                        {
+                            <span class="mx-2">|</span> <span>CNPJ: @empresaLayout.Cnpj</span>
+                        }
+                    </span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+            });
+
+            // Configuração global do DataTable
+            if ($('.datatable').length > 0) {
+                $('.datatable').DataTable({
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json'
+                    },
+                    pageLength: 25,
+                    responsive: true
+                });
+            }
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
