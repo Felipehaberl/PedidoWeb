@@ -1,0 +1,37 @@
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ASP.NET Core
+appsettings.Development.json
+
+# Publish
+wwwroot/lib/
+
+# Entity Framework
+*.db
+*.sqlite
+
+# Node (se usar frontend)
+node_modules/
+
+# Outros
+ScaffoldingReadMe.txt
