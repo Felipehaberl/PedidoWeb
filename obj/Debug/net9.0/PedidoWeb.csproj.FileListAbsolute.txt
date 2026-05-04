@@ -1,8 +1,0 @@
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.csproj.AssemblyReference.cache
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.GeneratedMSBuildEditorConfig.editorconfig
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.AssemblyInfoInputs.cache
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.AssemblyInfo.cs
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.csproj.CoreCompileInputs.cache
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.MvcApplicationPartsAssemblyInfo.cache
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.RazorAssemblyInfo.cache
-C:\GIT\PedidoWeb\obj\Debug\net9.0\PedidoWeb.RazorAssemblyInfo.cs
