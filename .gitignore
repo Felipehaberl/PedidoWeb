@@ -29,6 +29,7 @@ wwwroot/lib/
 # Entity Framework
 *.db
 *.sqlite
+*.sql
 
 # Node (se usar frontend)
 node_modules/
