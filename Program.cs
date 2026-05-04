@@ -73,4 +73,32 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    if (!await roleManager.RoleExistsAsync("Admin"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+    }
+
+    var user = await userManager.FindByEmailAsync("admin@sistema.com");
+
+    if (user == null)
+    {
+        var admin = new IdentityUser
+        {
+            UserName = "admin@sistema.com",
+            Email = "admin@sistema.com",
+            EmailConfirmed = true
+        };
+
+        await userManager.CreateAsync(admin, "Admin@123");
+        await userManager.AddToRoleAsync(admin, "Admin");
+    }
+}
+
+app.Run();
+
 app.Run();

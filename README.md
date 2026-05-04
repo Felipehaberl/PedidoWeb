@@ -71,3 +71,15 @@ git clone https://github.com/seu-usuario/PedidoWeb.git
 cd PedidoWeb
 dotnet ef database update
 dotnet run
+
+## Default Access (Development Only)
+
+⚠️ This environment is configured for development purposes only.
+
+On application startup, the system automatically initializes the database (if not exists) and seeds a default administrator account.
+
+**Default Database:** PedidoWeb (auto-created via Entity Framework migrations)
+
+**Default Admin Account:**
+Email: admin@sistema.com  
+Password: Admin@123
